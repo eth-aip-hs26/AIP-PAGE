@@ -1,0 +1,207 @@
+/* AIP-PAGE public hub. Same design tokens as the team's meeting site
+   (meeting-engine's src/styles.css), so both parts look like one site.
+   No inline styles and no external resources: the page's security policy
+   forbids them. */
+
+:root {
+  --bg: #f5f5f7;
+  --surface: #ffffff;
+  --text: #1d1d1f;
+  --text-2: #6e6e73;
+  --text-3: #86868b;
+  --separator: rgb(0 0 0 / 0.1);
+  --accent: #0066cc;
+  --accent-tint: rgb(0 113 227 / 0.1);
+  --focus: #0071e3;
+  --header: rgb(255 255 255 / 0.72);
+  --card-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.05);
+  --radius-card: 18px;
+  --font: -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* One quiet tint per project, used only for its icon. */
+  --enterprise: #0071e3;
+  --finance: #1a7f37;
+  --legal: #8944ab;
+  --assistant: #c4560a;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000000;
+    --surface: #1c1c1e;
+    --text: #f5f5f7;
+    --text-2: #a1a1a6;
+    --text-3: #8d8d93;
+    --separator: rgb(255 255 255 / 0.12);
+    --accent: #2997ff;
+    --accent-tint: rgb(10 132 255 / 0.18);
+    --focus: #2997ff;
+    --header: rgb(28 28 30 / 0.72);
+    --card-shadow: none;
+    --enterprise: #2997ff;
+    --finance: #30d158;
+    --legal: #bf5af2;
+    --assistant: #ff9f0a;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.53;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: var(--accent); text-decoration: none; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+
+.wrap { max-width: 60rem; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 640px) { .wrap { padding: 0 24px; } }
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 8px;
+  z-index: 20;
+  padding: 8px 14px;
+  border-radius: 980px;
+  background: var(--surface);
+  color: var(--accent);
+  font-weight: 600;
+}
+.skip-link:focus { left: 8px; }
+
+/* ----- header and footer (as on the meeting site) ----- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--header);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: 0 1px 0 var(--separator);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header { background: var(--surface); }
+}
+.header-inner { display: flex; align-items: center; gap: 16px; min-height: 52px; }
+.course-name { color: var(--text); font-weight: 600; letter-spacing: -0.01em; margin-right: auto; }
+.header-meta { color: var(--text-2); font-size: 0.9375rem; }
+
+main.wrap { padding-top: 56px; padding-bottom: 72px; }
+@media (min-width: 640px) { main.wrap { padding-top: 88px; } }
+main:focus { outline: none; }
+
+.site-footer { color: var(--text-2); font-size: 0.8125rem; letter-spacing: 0.01em; padding-bottom: 40px; }
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--separator);
+}
+.site-footer a { color: var(--text-2); text-decoration: underline; text-underline-offset: 3px; }
+.site-footer a:hover { color: var(--text); }
+
+/* ----- hero ----- */
+
+.hero { max-width: 40rem; }
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--text-2);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+h1 {
+  font-size: clamp(2.5rem, 1.6rem + 4vw, 4rem);
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 0 0 20px;
+}
+.lead { font-size: clamp(1.1875rem, 1rem + 0.6vw, 1.375rem); line-height: 1.45; color: var(--text-2); margin: 0; }
+
+/* ----- projects ----- */
+
+.block { margin: 72px 0 0; }
+h2 { font-size: 1.5rem; line-height: 1.25; font-weight: 700; letter-spacing: -0.016em; margin: 0 0 18px; }
+h3 { font-size: 1.3125rem; line-height: 1.3; font-weight: 600; letter-spacing: -0.014em; margin: 0; }
+
+.project-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 640px) { .project-grid { grid-template-columns: 1fr 1fr; gap: 20px; } }
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  min-height: 190px;
+  padding: 24px;
+  background: var(--surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--card-shadow);
+}
+@media (min-width: 640px) { .project-card { min-height: 220px; padding: 28px; } }
+
+.project-icon {
+  display: inline-flex;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  align-items: center;
+  justify-content: center;
+  color: var(--tint);
+  background: color-mix(in srgb, var(--tint) 12%, transparent);
+}
+.project-icon svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.project-enterprise { --tint: var(--enterprise); }
+.project-finance { --tint: var(--finance); }
+.project-legal { --tint: var(--legal); }
+.project-assistant { --tint: var(--assistant); }
+.project-card h3 { margin-top: auto; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 980px;
+  background: var(--accent-tint);
+  color: var(--accent);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+@media (prefers-contrast: more) {
+  :root { --text-2: var(--text); --separator: var(--text-3); }
+  .project-card { border: 1px solid var(--text-3); }
+}

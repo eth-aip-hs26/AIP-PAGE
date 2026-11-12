@@ -1,0 +1,58 @@
+# Builds AIP-PAGE and publishes it on GitHub Pages, on every push to main:
+#   /       the public hub (hub/), copied as it is
+#   /team/  the TA team's private meeting place, built by meeting-engine from
+#           team/course.yml (the website only; its content is loaded after sign-in)
+#
+# Engine version: change "@v0.5.1" below to get a newer engine, then push.
+# No secrets are needed.
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Copy the public hub
+        run: |
+          mkdir -p _site
+          cp -R hub/. _site/
+          touch _site/.nojekyll
+
+      - name: Build the team's meeting place
+        uses: ElisejOrsini/meeting-engine@v0.5.1
+        with:
+          content-dir: team
+          out-dir: _site/team
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
