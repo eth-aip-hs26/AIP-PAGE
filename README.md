@@ -5,7 +5,7 @@ The website of AI-Project (AIP), HS 2026: https://eth-aip-hs26.github.io/AIP-PAG
 | Path | What | Who sees it |
 |------|------|-------------|
 | `hub/` → `/` | the public hub: the four projects (previews coming soon; later one page per weekend and project) | everyone |
-| `team/` → `/team/` | the TA team's meeting place, built with [meeting-engine](https://github.com/ElisejOrsini/meeting-engine/blob/v0.5.1/docs/private-course.md) | signed-in team members only |
+| `team/` → `/team/` | the TA team's meeting place, built with [meeting-engine](https://github.com/ElisejOrsini/meeting-engine/blob/v0.9.0/docs/private-course.md) | signed-in team members only |
 
 This repository is public. It holds the public hub and the meeting place's
 settings (`team/course.yml`), **never meeting content**: meetings, the team
@@ -25,4 +25,4 @@ repository and served from here. Keep the page's Content-Security-Policy
 ## Deploying
 
 Every push to `main` publishes the site (`.github/workflows/deploy.yml`).
-Updating the meeting place: change the engine version (`@v0.5.1`) there.
+Updating the meeting place: change the engine version (`@v0.9.0`) there.
