@@ -1,5 +1,5 @@
 # Settings of the TA team's private meeting place (AIP-PAGE/team/).
-# Docs: https://github.com/ElisejOrsini/meeting-engine/blob/v0.9.1/docs/private-course.md
+# Docs: https://github.com/ElisejOrsini/meeting-engine/blob/v0.9.2/docs/private-course.md
 #
 # The meetings, the team list and survey answers live in the database; only
 # signed-in team members can read them. This file is public; everything in it may be.
